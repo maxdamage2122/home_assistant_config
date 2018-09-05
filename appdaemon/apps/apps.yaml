@@ -1,0 +1,19 @@
+location:
+  module: location
+  class: Location
+
+good_night:
+  module: good_night
+  class: GoodNight
+
+gh_door_lock:
+  module: gh_door_lock
+  class: GhDoorLock
+
+ha_startup:
+  module: ha_startup
+  class: HaStartup
+
+doorbell:
+  module: doorbell
+  class: Doorbell

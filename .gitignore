@@ -1,5 +1,5 @@
 # Ignore everything...
-*
+/*
 
 # ...except these files
 !.gitignore
@@ -8,3 +8,9 @@
 !customize.yaml
 !groups.yaml
 !scripts.yaml
+!/appdaemon/
+/appdaemon/*
+!/appdaemon/apps/
+/appdaemon/apps/*
+!/appdaemon/apps/*.yaml
+!/appdaemon/apps/*.py
