@@ -1,0 +1,119 @@
+default_view:
+  name: "Main"
+  view: yes
+  #icon: mdi:home 
+  entities:
+    - device_tracker.google_maps_116476838057080050876
+    - device_tracker.google_maps_103220762903139682628
+    - group.living_room
+    - group.kitchen
+    - group.breezeway
+    - group.hall
+    - group.garage
+    - input_boolean.ga_unlock_door_permission
+    - input_boolean.vacation_mode
+   # - group.christmas
+    - alarm_control_panel.alarm
+    - climate.living_room
+
+alarm:
+  name: "Alarm"
+  view: true
+  entities:
+  - alarm_control_panel.alarm
+  - group.alarm_arm_home
+  - group.alarm_arm_away
+
+alarm_arm_away:
+  name: "Away"
+  entities:
+  - input_boolean.alarm_away_light__living_room_ceiling_light
+  - input_boolean.alarm_away_light__breezeway_lamp
+  - input_boolean.alarm_away_light__kitchen_light
+  - input_boolean.alarm_away_light__upstairs_hall_light
+  - input_boolean.alarm_away_lock__kitchen_door_lock
+  - input_boolean.alarm_away_cover__garage_door
+  - input_boolean.alarm_away_binary_sensor__living_room_occupancy
+  - input_boolean.alarm_away_binary_sensor__upstairs_occupancy
+
+alarm_arm_home:
+  name: "Home"
+  entities:
+  - input_boolean.alarm_home_light__living_room_ceiling_light
+  - input_boolean.alarm_home_light__breezeway_lamp
+  - input_boolean.alarm_home_light__kitchen_light
+  - input_boolean.alarm_home_light__upstairs_hall_light
+  - input_boolean.alarm_home_lock__kitchen_door_lock
+  - input_boolean.alarm_home_cover__garage_door
+  - input_boolean.alarm_home_binary_sensor__living_room_occupancy
+  - input_boolean.alarm_home_binary_sensor__upstairs_occupancy
+
+#debug:
+#  name: "Debug"
+#  view: true
+#  entities:
+#  - binary_sensor.living_room_occupancy
+#  - binary_sensor.upstairs_occupancy
+
+living_room:
+  name: "Living Room"
+  control: hidden
+  entities:
+  - light.living_room_ceiling_light
+
+kitchen:
+  name: "Kitchen"
+  control: hidden
+  entities:
+  - light.kitchen_light
+  - lock.kitchen_door_lock
+
+breezeway:
+  name: "Breezeway"
+  control: hidden
+  entities:
+  - light.breezeway_lamp
+
+garage:
+  name: "Garage"
+  control: hidden
+  entities:
+  - cover.garage_door
+
+hall:
+  name: "Hall"
+  control: hidden
+  entities:
+  - light.upstairs_hall_light
+
+Justin:
+  entities:
+  - device_tracker.ddwrt_justin
+  - sensor.smartthings_justin
+  - device_tracker.google_maps_116476838057080050876
+
+Alex:
+  entities:
+  - device_tracker.ddwrt_alex
+  - sensor.smartthings_alex
+  - device_tracker.google_maps_103220762903139682628
+
+christmas:
+  name: "Christmas"
+  control: hidden
+  entities:
+  - switch.christmas_tree
+  - input_boolean.christmas_lights
+  - automation.christmas_lights_timer
+  - group.christmas_lights_timer_settings
+  - script.christmas_spirit
+
+christmas_lights_timer_settings:
+  name: "Timer Settings"
+  control: hidden
+  entities:
+  - input_select.christmas_lights_timer_on_options
+  - input_number.christmas_lights_timer_sunset_offset
+  - input_text.christmas_lights_on_time
+  - input_text.christmas_lights_off_time
+

@@ -4,3 +4,7 @@
 # ...except these files
 !.gitignore
 !configuration.yaml
+!automations.yaml
+!customize.yaml
+!groups.yaml
+!scripts.yaml

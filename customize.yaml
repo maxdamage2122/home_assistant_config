@@ -1,0 +1,35 @@
+input_boolean.christmas_lights:
+  icon: mdi:power
+  google_assistant: true
+  google_assistant_type: switch
+  google_assistant_name: "Christmas Lights"
+automation.christmas_lights_timer:
+  friendly_name: Timer
+  icon: mdi:timer
+group.all_lights:
+  friendly_name: Lights
+  hidden: false
+group.all_locks:
+  friendly_name: Locks
+  hidden: false
+group.all_scripts:
+  control: hidden
+  friendly_name: Scripts
+input_boolean.christmas_lights_timer_settings:
+  icon: mdi:settings
+group.christmas_lights_timer_settings:
+  icon: mdi:settings
+input_text.christmas_lights_off_time:
+  icon: mdi:clock
+input_text.christmas_lights_on_time:
+  icon: mdi:clock
+input_select.christmas_lights_timer_on_options:
+  icon: mdi:weather-sunset
+input_number.christmas_lights_timer_sunset_offset:
+  icon: mdi:timelapse
+script.everyone_leaves:
+  google_assistant: false
+script.someone_arrives:
+  google_assistant: false
+cover.garage_door:
+  device_class: garage

@@ -1,0 +1,6 @@
+- alias: startup
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    service: script.ha_start

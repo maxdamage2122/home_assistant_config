@@ -1,0 +1,15 @@
+secured_kitchen_door_unlock:
+  alias: Kitchen Door Unlock
+  sequence:
+
+kitchen_door_lock:
+  alias: Kitchen Door Lock
+  sequence:
+
+good_night:
+  alias: Good Night
+  sequence:
+
+ha_start:
+  alias: Home Assistant Start
+  sequence:
