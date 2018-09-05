@@ -1,0 +1,357 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 6
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/New_York
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  base_url: !secret base_url
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+#conversation:
+
+recorder:
+  exclude:
+    domains:
+      - group
+      - media_player
+    entities:
+      - weather.living_room
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+#sensor:
+#  - platform: yr
+
+# Text to speech
+tts:
+  - platform: google
+
+hassio:
+
+media_extractor:
+
+google_assistant:
+  project_id: !secret google_assistant_project_id
+  client_id: !secret google_assistant_client_id
+  access_token: !secret google_assistant_access_token
+  api_key: !secret google_assistant_api_key
+#  expose_by_default: true
+  exposed_domains:
+    - switch
+    - light
+    #- lock
+    - script
+    - scene
+
+alarm_control_panel:
+  - platform: manual_mqtt
+    name: "Alarm"
+    state_topic: home/alarm
+    command_topic: home/alarm/set
+    # code: 1234
+    # code_template:
+    # seconds before changing states (ex. disarmed to armed)
+    pending_time: 30
+    # additional seconds before triggering the alarm
+    delay_time: 0
+    trigger_time: 9999
+    # disarm_after_trigger: true
+    # disarmed:
+      # delay_time: 0
+      # trigger_time: 0
+    # triggered:
+      # pending_time: 0
+    # armed_home:
+      # pending_time: 0
+      # delay_time: 0
+      # trigger_time: 1
+    # armed_away:
+      # trigger_time: 10
+    # armed_night:
+    # armed_custom_bypass:
+
+ecobee:
+  api_key: !secret ecobee_api_key
+  hold_temp: false
+
+mqtt:
+  broker: core-mosquitto
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+notify:
+  - name: chrome
+    platform: html5
+    gcm_api_key: !secret notify_chrome_gcm_api_key
+    gcm_sender_id: !secret notify_chrome_gcm_sender_id
+  - name: nexus_player
+    platform: nfandroidtv
+    host: 192.168.1.51
+
+remote:
+  - platform: harmony
+    name: "Harmony Hub"
+    host: 192.168.1.56
+
+#android_ip_webcam:
+#  - host: nexus6
+
+media_player:
+  - platform: cast
+    host: 192.168.1.51
+  - platform: cast
+    host: 192.168.1.55
+
+timer:
+  breezeway_lamp:
+
+variable:
+  alarm_trigger:
+
+device_tracker:
+  - platform: ddwrt
+    host: 192.168.1.2
+    username: !secret router_username
+    password: !secret router_password
+    track_new_devices: no
+  - platform: mqtt
+    #consider_home: 0:20:00
+    devices:
+      # Justin: location/justin
+      # Alex: location/alex
+      smartthings_justin: smartthings/Justin/presence/stat
+      smartthings_alex: smartthings/Alex/presence/stat
+      # alarm_panel_justin: AlarmPanel/location/justin
+      # alarm_panel_alex: AlarmPanel/location/alex
+  - platform: google_maps
+    username: !secret google_maps_username
+    password: !secret google_maps_password
+
+light:
+  - platform: mqtt
+    name: "Living Room Ceiling Light"
+    state_topic: "LivingRoomCeilingLight/stat/POWER"
+    command_topic: "LivingRoomCeilingLight/cmnd/POWER1"
+#    retain: true
+  - platform: mqtt
+    name: "Upstairs Hall Light"
+    state_topic: "UpstairsHallLight/stat/POWER"
+    command_topic: "UpstairsHallLight/cmnd/POWER1"
+#    retain: true
+  - platform: mqtt
+    name: "Breezeway Lamp"
+    state_topic: "BreezewayLamp/stat/POWER"
+    command_topic: "BreezewayLamp/cmnd/POWER1"
+#    retain: true
+  - platform: mqtt
+    name: "Kitchen Light"
+    state_topic: "KitchenLight/stat/POWER"
+    command_topic: "KitchenLight/cmnd/POWER1"
+
+lock:
+  - platform: mqtt
+    name: "Kitchen Door Lock"
+    state_topic: "smartthings/Kitchen Door Lock/lock/stat"
+    command_topic: "smartthings/Kitchen Door Lock/lock/cmnd"
+    payload_lock: "locked"
+    payload_unlock: "unlocked"
+#    retain: true
+
+switch:
+  - platform: mqtt
+    name: "Outdoor Switch"
+    state_topic: "smartthings/Outdoor Switch/switch"
+    command_topic: "smartthings/Outdoor Switch/switch"
+    payload_on: "on"
+    payload_off: "off"
+#    retain: true
+  - platform: mqtt
+    name: "Christmas Tree"
+    state_topic: "ChristmasTree/stat/POWER"
+    command_topic: "ChristmasTree/cmnd/POWER1"
+#    retain: true
+
+cover:
+  - platform: mqtt
+    name: "Garage Door"
+    command_topic: "GarageDoor/cmnd/POWER1"
+    payload_open: "on"
+    payload_close: "on"
+    payload_stop: "on"
+    state_topic: "GarageDoor/sensor/cmnd/POWER1"
+    state_open: "ON"
+    state_closed: "OFF"
+    availability_topic: "GarageDoor/tele/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+
+input_boolean:
+  christmas_lights:
+    name: "Outdoor Lights"
+  christmas_lights_timer_settings:
+    name: "Timer Settings"
+  ga_unlock_door_permission:
+    name: "Google Door Lock Permission"
+  vacation_mode:
+    name: "Vacation Mode"
+  alarm_home_light__living_room_ceiling_light:
+    name: "Living Room Light"
+  alarm_home_light__breezeway_lamp:
+    name: "Breezeway Lamp"
+  alarm_home_light__kitchen_light:
+    name: "Kitchen Light"
+  alarm_home_light__upstairs_hall_light:
+    name: "Upstairs Hall Light"
+  alarm_home_lock__kitchen_door_lock:
+    name: "Kitchen Door Lock"
+  alarm_home_cover__garage_door:
+    name: "Garage Door"
+  alarm_home_binary_sensor__living_room_occupancy:
+    name: "Living Room Occupancy"
+  alarm_home_binary_sensor__upstairs_occupancy:
+    name: "Upstairs Occupancy"
+  alarm_away_light__living_room_ceiling_light:
+    name: "Living Room Light"
+  alarm_away_light__breezeway_lamp:
+    name: "Breezeway Lamp"
+  alarm_away_light__kitchen_light:
+    name: "Kitchen Light"
+  alarm_away_light__upstairs_hall_light:
+    name: "Upstairs Hall Light"
+  alarm_away_lock__kitchen_door_lock:
+    name: "Kitchen Door Lock"
+  alarm_away_cover__garage_door:
+    name: "Garage Door"
+  alarm_away_binary_sensor__living_room_occupancy:
+    name: "Living Room Occupancy"
+  alarm_away_binary_sensor__upstairs_occupancy:
+    name: "Upstairs Occupancy"
+
+input_select:
+  christmas_lights_timer_on_options:
+    name: Turn on at
+    options:
+     - Dusk
+     - Sunset
+     - Specific Time
+    initial: Specific Time
+
+input_number:
+  christmas_lights_timer_sunset_offset:
+    name: Sun Offset
+    unit_of_measurement: minutes
+    initial: 0
+    min: -60
+    max: 60
+    step: 1
+    mode: slider
+
+input_text:
+  christmas_lights_on_time:
+    name: "Time On"
+    initial: "17:00"
+    pattern: '[0-9][0-9]:[0-9][0-9]'
+  christmas_lights_off_time:
+    name: "Time Off"
+    initial: "22:00"
+    pattern: '[0-9][0-9]:[0-9][0-9]'
+  alarm_triggered_by:
+    name: "Alarm triggered by"
+
+sensor:
+  - platform: template
+    sensors:
+      smartthings_justin:
+        value_template: >
+          {% if is_state('device_tracker.smartthings_justin', 'present') %}
+            home
+          {% elif is_state('device_tracker.smartthings_justin', 'not present') %}
+            not_home
+          {% endif %}
+      smartthings_alex:
+        value_template: >
+          {% if is_state('device_tracker.smartthings_alex', 'present') %}
+            home
+          {% elif is_state('device_tracker.smartthings_alex', 'not present') %}
+            not_home
+          {% endif %}
+  - platform: mqtt
+    name: Doorbell
+    state_topic: "Doorbell/stat/POWER"
+
+zone:
+  - name: Home
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 100
+  - name: Quinn
+    latitude: !secret Quinn_latitude
+    longitude: !secret Quinn_longitude
+    radius: 150
+  - name: "Park St"
+    latitude: !secret Park_St_latitude
+    longitude: !secret Park_St_longitude
+    radius: 100
+  - name: "Carnegie St"
+    latitude: !secret Carnegie_St_latitude
+    longitude: !secret Carnegie_St_longitude
+    radius: 100
+  - name: "Houles"
+    latitude: !secret Houles_latitude
+    longitude: !secret Houles_longitude
+    radius: 100
+  - name: "Aurelios"
+    latitude: !secret Aurelios_latitude
+    longitude: !secret Aurelios_longitude
+    radius: 100
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
