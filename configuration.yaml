@@ -157,7 +157,7 @@ variable:
 
 device_tracker:
   - platform: ddwrt
-    host: 192.168.1.2
+    host: 192.168.1.1
     username: !secret router_username
     password: !secret router_password
     track_new_devices: no
