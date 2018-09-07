@@ -46,6 +46,9 @@ class Location(hass.Hass):
       self.call_service("tts/google_say", entity_id="media_player.living_room_speaker", message=name+" is home")
       # set thermostat to home
       self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="home")
+  
+  def turn_off_callback(self, kwargs):
+    self.turn_off(kwargs.get("entity_id"))
 
   def speaker_done_playing(self, entity, attribute, old, new, kwargs):
     # restore speaker volume
