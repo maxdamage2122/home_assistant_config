@@ -161,6 +161,10 @@ device_tracker:
     username: !secret router_username
     password: !secret router_password
     track_new_devices: no
+  - platform: ddwrt
+    host: 192.168.1.2
+    username: !secret access_point_username
+    password: !secret access_point_password
   - platform: mqtt
     #consider_home: 0:20:00
     devices:
