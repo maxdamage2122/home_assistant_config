@@ -15,7 +15,17 @@ class Location(hass.Hass):
     
     # alex left quinn
     self.listen_state(self.alex_left_quinn, "device_tracker.google_maps_103220762903139682628", old="Quinn")
-
+    
+    # notification actions
+    self.listen_event(self.set_ecobee_away, "html5_notification.clicked", action = "set_ecobee_away")
+    self.listen_event(self.set_ecobee_away, "html5_notification.clicked", action = "set_ecobee_home")
+  
+  def set_ecobee_away(self, event_name, data, kwargs):
+    self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="away")
+  
+  def set_ecobee_home(self, event_name, data, kwargs):
+    self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="home")
+  
   def alex_left_quinn(self, entity, attribute, old, new, kwargs):
     # notify justin
     if new != "Quinn":
@@ -45,7 +55,17 @@ class Location(hass.Hass):
       domain, name = self.split_entity(entity)
       self.call_service("tts/google_say", entity_id="media_player.living_room_speaker", message=name+" is home")
       # set thermostat to home
-      self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="home")
+      hold_mode = self.get_state("climate.living_room", attribute="hold_mode")
+      if hold_mode != "temp":
+        self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="home")
+      else:
+        extra_data = {
+          "icon": "https://lh3.googleusercontent.com/JUpoMaUbGEnGJ2x0xiR8cp3GNK76wuh2dcLGZoWXpxG6sWLubetqJTbKExgBSPj39WWz=s180-rw",
+          "actions": [{
+              "action": "set_ecobee_home",
+              "title": "Set to home"}]
+        }
+        self.call_service("notify/chrome", title="Ecobee", message="Thermostat is holding temperature.", data=extra_data)
   
   def turn_off_callback(self, kwargs):
     self.turn_off(kwargs.get("entity_id"))
@@ -65,4 +85,14 @@ class Location(hass.Hass):
       # turn off harmony
       self.call_service("remote/turn_off", entity_id="remote.harmony_hub")
       # set thermostat to away
-      self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="away")
+      hold_mode = self.get_state("climate.living_room", attribute="hold_mode")
+      if hold_mode != "temp":
+        self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="away")
+      else:
+        extra_data = {
+          "icon": "https://lh3.googleusercontent.com/JUpoMaUbGEnGJ2x0xiR8cp3GNK76wuh2dcLGZoWXpxG6sWLubetqJTbKExgBSPj39WWz=s180-rw",
+          "actions": [{
+              "action": "set_ecobee_away",
+              "title": "Set to away"}]
+        }
+        self.call_service("notify/chrome", title="Ecobee", message="Thermostat is holding temperature.", data=extra_data)
