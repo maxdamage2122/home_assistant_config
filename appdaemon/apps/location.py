@@ -18,7 +18,7 @@ class Location(hass.Hass):
     
     # notification actions
     self.listen_event(self.set_ecobee_away, "html5_notification.clicked", action = "set_ecobee_away")
-    self.listen_event(self.set_ecobee_away, "html5_notification.clicked", action = "set_ecobee_home")
+    self.listen_event(self.set_ecobee_home, "html5_notification.clicked", action = "set_ecobee_home")
   
   def set_ecobee_away(self, event_name, data, kwargs):
     self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="away")
