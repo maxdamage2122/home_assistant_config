@@ -13,9 +13,6 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
-# Show links to resources in log and frontend
-#introduction:
-
 # Enables the frontend
 frontend:
 
@@ -42,9 +39,6 @@ updater:
 # Discover some devices automatically
 discovery:
 
-# Allows you to issue voice commands from the frontend in enabled browsers
-#conversation:
-
 recorder:
   exclude:
     domains:
@@ -62,20 +56,11 @@ logbook:
 # Enables a map showing the location of tracked devices
 map:
 
-# Track the sun
-sun:
-
-# Weather prediction
-#sensor:
-#  - platform: yr
-
 # Text to speech
 tts:
   - platform: google
 
 hassio:
-
-media_extractor:
 
 google_assistant:
   project_id: !secret google_assistant_project_id
@@ -135,20 +120,11 @@ remote:
     name: "Harmony Hub"
     host: 192.168.1.56
 
-#android_ip_webcam:
-#  - host: nexus6
-
 media_player:
   - platform: cast
     host: 192.168.1.51
   - platform: cast
     host: 192.168.1.55
-
-timer:
-  breezeway_lamp:
-
-variable:
-  alarm_trigger:
 
 device_tracker:
   - platform: ddwrt
@@ -161,14 +137,9 @@ device_tracker:
     username: !secret access_point_username
     password: !secret access_point_password
   - platform: mqtt
-    #consider_home: 0:20:00
     devices:
-      # Justin: location/justin
-      # Alex: location/alex
       smartthings_justin: smartthings/Justin/presence/stat
       smartthings_alex: smartthings/Alex/presence/stat
-      # alarm_panel_justin: AlarmPanel/location/justin
-      # alarm_panel_alex: AlarmPanel/location/alex
   - platform: google_maps
     username: !secret google_maps_username
     password: !secret google_maps_password
@@ -178,17 +149,14 @@ light:
     name: "Living Room Ceiling Light"
     state_topic: "LivingRoomCeilingLight/stat/POWER"
     command_topic: "LivingRoomCeilingLight/cmnd/POWER1"
-#    retain: true
   - platform: mqtt
     name: "Upstairs Hall Light"
     state_topic: "UpstairsHallLight/stat/POWER"
     command_topic: "UpstairsHallLight/cmnd/POWER1"
-#    retain: true
   - platform: mqtt
     name: "Breezeway Lamp"
     state_topic: "BreezewayLamp/stat/POWER"
     command_topic: "BreezewayLamp/cmnd/POWER1"
-#    retain: true
   - platform: mqtt
     name: "Kitchen Light"
     state_topic: "KitchenLight/stat/POWER"
@@ -201,8 +169,6 @@ lock:
     command_topic: "smartthings/Kitchen Door Lock/lock/cmnd"
     payload_lock: "locked"
     payload_unlock: "unlocked"
-#    retain: true
-
 switch:
   - platform: mqtt
     name: "Outdoor Switch"
@@ -210,12 +176,10 @@ switch:
     command_topic: "smartthings/Outdoor Switch/switch"
     payload_on: "on"
     payload_off: "off"
-#    retain: true
   - platform: mqtt
     name: "Christmas Tree"
     state_topic: "ChristmasTree/stat/POWER"
     command_topic: "ChristmasTree/cmnd/POWER1"
-#    retain: true
 
 cover:
   - platform: mqtt
