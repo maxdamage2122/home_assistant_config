@@ -114,7 +114,7 @@ alarm_control_panel:
 
 ecobee:
   api_key: !secret ecobee_api_key
-  hold_temp: false
+  hold_temp: true
 
 mqtt:
   broker: core-mosquitto
