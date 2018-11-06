@@ -251,6 +251,51 @@ input_text:
   alarm_triggered_by:
     name: "Alarm triggered by"
 
+binary_sensor:
+  - platform: bayesian
+    name: "Presence Alex"
+    prior: 0.5
+    probability_threshold: 0.9
+    observations:
+      - entity_id: device_tracker.ddwrt_alex
+        prob_given_true: 0.9
+        # prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: device_tracker.google_maps_103220762903139682628
+        prob_given_true: 0.9
+        # prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: device_tracker.smartthings_alex
+        prob_given_true: 0.9
+        # prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'present'
+    device_class: presence
+  - platform: bayesian
+    name: "Presence Justin"
+    #friendly_name: "Justin"
+    prior: 0.5
+    probability_threshold: 0.9
+    observations:
+      - entity_id: device_tracker.ddwrt_justin
+        prob_given_true: 0.9
+        # prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: device_tracker.google_maps_116476838057080050876
+        prob_given_true: 0.9
+        # prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'home'
+      - entity_id: device_tracker.smartthings_justin
+        prob_given_true: 0.9
+        # prob_given_false: 0.1
+        platform: 'state'
+        to_state: 'present'
+    device_class: presence
+
 sensor:
   - platform: template
     sensors:

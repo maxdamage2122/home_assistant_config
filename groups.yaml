@@ -15,6 +15,9 @@ default_view:
    # - group.christmas
     - alarm_control_panel.alarm
     - climate.living_room
+    - binary_sensor.presence_alex
+    - binary_sensor.presence_justin
+    - camera.doorbell
 
 alarm:
   name: "Alarm"
