@@ -100,11 +100,6 @@ ecobee:
   api_key: !secret ecobee_api_key
   hold_temp: true
 
-mqtt:
-  broker: core-mosquitto
-  username: !secret mqtt_username
-  password: !secret mqtt_password
-
 notify:
   - name: chrome
     platform: html5
