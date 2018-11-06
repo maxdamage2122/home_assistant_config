@@ -131,19 +131,39 @@ light:
   - platform: mqtt
     name: "Living Room Ceiling Light"
     state_topic: "LivingRoomCeilingLight/stat/POWER"
-    command_topic: "LivingRoomCeilingLight/cmnd/POWER1"
+    command_topic: "LivingRoomCeilingLight/cmnd/POWER"
+    payload_off: "OFF"
+    payload_on: "ON"
+    availability_topic: "LivingRoomCeilingLight/tele/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
   - platform: mqtt
     name: "Upstairs Hall Light"
     state_topic: "UpstairsHallLight/stat/POWER"
-    command_topic: "UpstairsHallLight/cmnd/POWER1"
+    command_topic: "UpstairsHallLight/cmnd/POWER"
+    payload_off: "OFF"
+    payload_on: "ON"
+    availability_topic: "UpstairsHallLight/tele/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
   - platform: mqtt
     name: "Breezeway Lamp"
     state_topic: "BreezewayLamp/stat/POWER"
-    command_topic: "BreezewayLamp/cmnd/POWER1"
+    command_topic: "BreezewayLamp/cmnd/POWER"
+    payload_off: "OFF"
+    payload_on: "ON"
+    availability_topic: "BreezewayLamp/tele/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
   - platform: mqtt
     name: "Kitchen Light"
     state_topic: "KitchenLight/stat/POWER"
-    command_topic: "KitchenLight/cmnd/POWER1"
+    command_topic: "KitchenLight/cmnd/POWER"
+    payload_off: "OFF"
+    payload_on: "ON"
+    availability_topic: "KitchenLight/tele/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
 
 lock:
   - platform: mqtt
@@ -152,6 +172,7 @@ lock:
     command_topic: "smartthings/Kitchen Door Lock/lock/cmnd"
     payload_lock: "locked"
     payload_unlock: "unlocked"
+    
 switch:
   - platform: mqtt
     name: "Outdoor Switch"
