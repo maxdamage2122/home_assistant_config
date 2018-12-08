@@ -21,3 +21,7 @@ doorbell:
 vacation_mode:
   module: vacation_mode
   class: VacationMode
+
+google_speakers:
+  module: google_speakers
+  class: GoogleSpeakers
