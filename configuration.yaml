@@ -101,6 +101,9 @@ ecobee:
   hold_temp: true
 
 notify:
+  - name: broadcast
+    platform: rest
+    resource: http://192.168.1.50:5001/broadcast_message
   - name: chrome
     platform: html5
     gcm_api_key: !secret notify_chrome_gcm_api_key
