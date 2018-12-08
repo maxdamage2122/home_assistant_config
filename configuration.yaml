@@ -336,7 +336,8 @@ sensor:
           {% endif %}
   - platform: mqtt
     name: Doorbell
-    state_topic: "Doorbell/stat/POWER"
+    state_topic: "Doorbell/cmnd/POWER"
+    force_update: true
 
 zone:
   - name: Home
