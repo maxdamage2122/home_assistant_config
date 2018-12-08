@@ -21,10 +21,10 @@ class Location(hass.Hass):
     self.listen_event(self.set_ecobee_home, "html5_notification.clicked", action = "set_ecobee_home")
   
   def set_ecobee_away(self, event_name, data, kwargs):
-    self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="away")
+    self.call_service("climate/set_away_mode", entity_id="climate.living_room", away_mode="true")
   
   def set_ecobee_home(self, event_name, data, kwargs):
-    self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="home")
+    self.call_service("climate/ecobee_resume_program", entity_id="climate.living_room", resume_all="true")
   
   def alex_left_quinn(self, entity, attribute, old, new, kwargs):
     # notify justin
@@ -57,7 +57,7 @@ class Location(hass.Hass):
       # set thermostat to home
       hold_mode = self.get_state("climate.living_room", attribute="hold_mode")
       if hold_mode != "temp":
-        self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="home")
+        self.call_service("climate/ecobee_resume_program", entity_id="climate.living_room", resume_all="true")
       else:
         extra_data = {
           "icon": "https://lh3.googleusercontent.com/JUpoMaUbGEnGJ2x0xiR8cp3GNK76wuh2dcLGZoWXpxG6sWLubetqJTbKExgBSPj39WWz=s180-rw",
@@ -87,7 +87,7 @@ class Location(hass.Hass):
       # set thermostat to away
       hold_mode = self.get_state("climate.living_room", attribute="hold_mode")
       if hold_mode != "temp":
-        self.call_service("climate/set_hold_mode", entity_id="climate.living_room", hold_mode="away")
+        self.call_service("climate/set_away_mode", entity_id="climate.living_room", away_mode="true")
       else:
         extra_data = {
           "icon": "https://lh3.googleusercontent.com/JUpoMaUbGEnGJ2x0xiR8cp3GNK76wuh2dcLGZoWXpxG6sWLubetqJTbKExgBSPj39WWz=s180-rw",
