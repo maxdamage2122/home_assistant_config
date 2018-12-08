@@ -5,6 +5,8 @@ import pytz
 class Location(hass.Hass):
 
   def initialize(self):
+    self.speakers = self.get_app("google_speakers")
+    
     # someone arrived home
     self.listen_state(self.someone_arrived_home, "group.justin", new="home")
     self.listen_state(self.someone_arrived_home, "group.alex", new="home")
@@ -48,12 +50,7 @@ class Location(hass.Hass):
       # unlock door
       self.call_service("lock/unlock", entity_id="lock.kitchen_door_lock")
       # set speaker volume and announce who arrived
-      self.volume = self.get_state("media_player.living_room_speaker", attribute="volume_level")
-      if self.volume != 0.5:
-        self.call_service("media_player/volume_set", entity_id="media_player.living_room_speaker", volume_level="0.5")
-        self.speaker_handle = self.listen_state(self.speaker_done_playing, "media_player.living_room_speaker", old="playing", new="idle")
-      domain, name = self.split_entity(entity)
-      self.call_service("tts/google_say", entity_id="media_player.living_room_speaker", message=name+" is home")
+      self.speakers.announce(name+" is home")
       # set thermostat to home
       hold_mode = self.get_state("climate.living_room", attribute="hold_mode")
       if hold_mode != "temp":
