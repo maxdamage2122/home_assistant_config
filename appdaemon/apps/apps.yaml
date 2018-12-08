@@ -17,3 +17,7 @@ ha_startup:
 doorbell:
   module: doorbell
   class: Doorbell
+
+vacation_mode:
+  module: vacation_mode
+  class: VacationMode
