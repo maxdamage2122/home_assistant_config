@@ -10,6 +10,7 @@ default_view:
     - group.breezeway
     - group.hall
     - group.garage
+    - group.outside
     - input_boolean.ga_unlock_door_permission
     - input_boolean.vacation_mode
    # - group.christmas
@@ -89,6 +90,12 @@ hall:
   control: hidden
   entities:
   - light.upstairs_hall_light
+
+outside:
+  name: "Outside"
+  control: hidden
+  entities:
+  - switch.outdoor_switch
 
 Justin:
   entities:

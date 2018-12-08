@@ -179,8 +179,8 @@ lock:
 switch:
   - platform: mqtt
     name: "Outdoor Switch"
-    state_topic: "smartthings/Outdoor Switch/switch"
-    command_topic: "smartthings/Outdoor Switch/switch"
+    state_topic: "smartthings/Outdoor Switch/switch/stat"
+    command_topic: "smartthings/Outdoor Switch/switch/cmnd"
     payload_on: "on"
     payload_off: "off"
   - platform: mqtt
