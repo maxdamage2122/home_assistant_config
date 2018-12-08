@@ -13,3 +13,13 @@ good_night:
 ha_start:
   alias: Home Assistant Start
   sequence:
+
+
+cast_doorbell:
+  alias: Cast Doorbell Camera
+  sequence:
+    - service: media_player.play_media
+      data:
+        entity_id: "media_player.living_room"
+        media_content_id: "http://192.168.1.135:8080"
+        media_content_type: "image/jpeg"

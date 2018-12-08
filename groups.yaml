@@ -18,6 +18,7 @@ default_view:
     - binary_sensor.presence_alex
     - binary_sensor.presence_justin
     - camera.doorbell
+    - script.cast_doorbell
 
 alarm:
   name: "Alarm"
