@@ -50,6 +50,7 @@ class Location(hass.Hass):
       # unlock door
       self.call_service("lock/unlock", entity_id="lock.kitchen_door_lock")
       # set speaker volume and announce who arrived
+      domain, name = self.split_entity(entity)
       self.speakers.announce(name+" is home")
       # set thermostat to home
       hold_mode = self.get_state("climate.living_room", attribute="hold_mode")
