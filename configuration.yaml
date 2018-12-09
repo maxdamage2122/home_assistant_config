@@ -125,6 +125,7 @@ device_tracker:
   - platform: google_maps
     username: !secret google_maps_username
     password: !secret google_maps_password
+    max_gps_accuracy: 200
 
 light:
   - platform: mqtt
